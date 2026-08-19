@@ -451,3 +451,119 @@ function initBackToTop() {
         });
     });
 }
+
+// AI Free Tier Model Router Interactive Workbench Handler
+import { AIModelRouter } from './services/aiModelRouter.js';
+
+function initAIRouterWorkbench() {
+    const dispatchBtn = document.getElementById('dispatchRouterBtn');
+    if (!dispatchBtn) return;
+
+    const router = new AIModelRouter();
+
+    const promptInput = document.getElementById('routerPromptInput');
+    const simulateToggle = document.getElementById('simulate429Toggle');
+    const outputText = document.getElementById('routerOutputText');
+    const traceLogs = document.getElementById('routerTraceLogs');
+    const activeBadge = document.getElementById('routerActiveBadge');
+    const telemetryLatency = document.getElementById('telemetryLatency');
+    const telemetryModel = document.getElementById('telemetryModel');
+    const telemetryFailover = document.getElementById('telemetryFailover');
+
+    const cardGoogle = document.getElementById('card-google');
+    const dotGoogle = document.getElementById('dot-google');
+    const statusGoogle = document.getElementById('status-google');
+
+    const cardGroq = document.getElementById('card-groq');
+    const dotGroq = document.getElementById('dot-groq');
+    const statusGroq = document.getElementById('status-groq');
+
+    let failoverTotal = 0;
+
+    // Sample prompts
+    document.querySelectorAll('.sample-prompt').forEach(btn => {
+        btn.addEventListener('click', () => {
+            promptInput.value = btn.dataset.p;
+        });
+    });
+
+    dispatchBtn.addEventListener('click', async () => {
+        const prompt = promptInput.value.trim();
+        if (!prompt) return;
+
+        const simulate429 = simulateToggle.checked;
+        dispatchBtn.disabled = true;
+        dispatchBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Routing Prompt...`;
+        activeBadge.textContent = 'ROUTING...';
+        activeBadge.className = 'px-2 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] animate-pulse';
+
+        traceLogs.innerHTML = `<div>&gt; [${new Date().toLocaleTimeString()}] Ingesting prompt into Xennials AI Router...</div>` +
+                              `<div>&gt; Attempting Primary Provider: Google Gemini 1.5 Flash (Free Tier)...</div>`;
+
+        outputText.textContent = 'Connecting to model stream...';
+
+        const startTime = Date.now();
+
+        try {
+            const result = await router.complete(prompt, {
+                simulateGoogle429: simulate429
+            });
+
+            const latency = Date.now() - startTime;
+            telemetryLatency.textContent = `${latency}ms`;
+            telemetryModel.textContent = result.provider.name;
+
+            if (result.provider.isFallback) {
+                failoverTotal++;
+                telemetryFailover.textContent = `${failoverTotal}`;
+
+                // Update Google card to 429 rate limit
+                cardGoogle.className = 'p-4 rounded-2xl bg-slate-950/80 border border-red-500/50';
+                dotGoogle.className = 'w-2 h-2 rounded-full bg-red-400 animate-ping';
+                statusGoogle.textContent = 'STATUS: 429 EXHAUSTED (COOLDOWN)';
+                statusGoogle.className = 'mt-3 text-[10px] font-mono text-red-400 font-medium';
+
+                // Update Groq card to Active Serving
+                cardGroq.className = 'p-4 rounded-2xl bg-slate-950/80 border border-emerald-500/50 shadow-lg shadow-emerald-500/10';
+                dotGroq.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
+                statusGroq.textContent = 'STATUS: SERVING (ACTIVE FALLBACK)';
+                statusGroq.className = 'mt-3 text-[10px] font-mono text-emerald-400 font-medium';
+
+                activeBadge.textContent = 'FAILOVER SUCCESSFUL';
+                activeBadge.className = 'px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px]';
+
+                traceLogs.innerHTML += `<div class="text-red-400">&gt; ⚠️ Google Gemini Free Tier 429 Exhaustion detected.</div>` +
+                                       `<div class="text-emerald-400">&gt; 🦙 Automatic Instant Failover triggered: ${result.provider.name}</div>` +
+                                       `<div>&gt; Execution completed in ${latency}ms with 0% downtime.</div>`;
+            } else {
+                cardGoogle.className = 'p-4 rounded-2xl bg-slate-950/80 border border-emerald-500/40';
+                dotGoogle.className = 'w-2 h-2 rounded-full bg-emerald-400';
+                statusGoogle.textContent = 'STATUS: SERVING (HEALTHY)';
+                statusGoogle.className = 'mt-3 text-[10px] font-mono text-emerald-400 font-medium';
+
+                activeBadge.textContent = 'ROUTED (PRIMARY)';
+                activeBadge.className = 'px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 text-[10px]';
+
+                traceLogs.innerHTML += `<div class="text-emerald-400">&gt; Request successfully served by Google Gemini Free Tier.</div>` +
+                                       `<div>&gt; Execution completed in ${latency}ms.</div>`;
+            }
+
+            outputText.textContent = result.content;
+        } catch (err) {
+            outputText.textContent = `Router Error: ${err.message}`;
+            activeBadge.textContent = 'ERROR';
+            activeBadge.className = 'px-2 py-0.5 rounded bg-red-950 text-red-300 text-[10px]';
+        } finally {
+            dispatchBtn.disabled = false;
+            dispatchBtn.innerHTML = `<i class="fas fa-bolt"></i> Execute Router Dispatch`;
+        }
+    });
+}
+
+// Ensure initAIRouterWorkbench runs on page load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAIRouterWorkbench);
+} else {
+    initAIRouterWorkbench();
+}
+
