@@ -92,6 +92,13 @@ h1, h2, h3, h4, h5, h6, .font-space {
     background-clip: text;
 }
 
+.gradient-text-gold {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef08a 25%, #eab308 60%, #ca8a04 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .gradient-text-cyan {
     background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
     -webkit-background-clip: text;
