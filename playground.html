@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xennials App Playground | Live AI Tools &amp; Web Applications Hub</title>
+    <meta name="description" content="Centralized interactive playground to launch and test all Xennials web applications, Odoo ERP, Webiny CMS, AgentQL web extractors, and AI monetization engines.">
+    <meta name="keywords" content="App Playground, Xennials Tools, Odoo ERP, Webiny CMS, Next.js, AI Tools, AgentQL, Sherlock">
+    
+    <!-- Preload Fonts & Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#0b0f19] text-gray-200 overflow-x-hidden relative">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-slate-800/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-2xl font-bold font-space flex items-center gap-3 group">
+                    <img src="assets/images/xennials_logo.jpg" alt="Xennials Logo" class="h-9 w-auto object-contain rounded-md shadow-md">
+                    <span class="gradient-text tracking-tight hidden sm:inline">Xennials</span>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                    <a href="index.html" class="hover:text-indigo-400 transition-colors">Home</a>
+                    <a href="index.html#about" class="hover:text-indigo-400 transition-colors">About</a>
+                    <a href="index.html#services" class="hover:text-indigo-400 transition-colors">Services</a>
+                    <a href="index.html#projects" class="hover:text-indigo-400 transition-colors">Projects</a>
+                    <a href="blog.html" class="text-pink-400 hover:text-pink-300 transition-colors flex items-center gap-1.5 font-semibold">
+                        <i class="fas fa-book-open text-xs"></i> Blog
+                    </a>
+                    <a href="playground.html" class="text-cyan-400 font-semibold transition-colors flex items-center gap-1.5 border-b-2 border-cyan-500 pb-0.5">
+                        <i class="fas fa-cubes text-xs"></i> App Playground
+                    </a>
+                    <a href="index.html#contact" class="hover:text-indigo-400 transition-colors">Contact</a>
+                    
+                    <!-- Theme Switcher -->
+                    <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-800 p-1 rounded-full">
+                        <button class="theme-option w-5 h-5 rounded-full bg-indigo-500 hover:scale-110 transition-transform" data-theme-name="default" title="Indigo & Pink"></button>
+                        <button class="theme-option w-5 h-5 rounded-full bg-cyan-500 hover:scale-110 transition-transform" data-theme-name="cyan" title="Cyber Cyan & Emerald"></button>
+                        <button class="theme-option w-5 h-5 rounded-full bg-purple-500 hover:scale-110 transition-transform" data-theme-name="purple" title="Deep Purple & Amber"></button>
+                    </div>
+
+                    <div class="h-4 w-px bg-slate-800"></div>
+                    <a href="https://github.com/teefisher2k20" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="text-gray-400 hover:text-white transition-colors text-lg">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                
+                <button class="md:hidden text-gray-300 hover:text-white focus:outline-none" id="mobile-menu-btn" aria-label="Toggle Navigation">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="hidden md:hidden mt-4 py-4 px-6 bg-slate-900/95 border border-slate-800 rounded-xl space-y-3" id="mobile-menu">
+                <a href="index.html" class="block py-2 text-gray-300 hover:text-indigo-400">Home</a>
+                <a href="blog.html" class="block py-2 text-pink-400 font-semibold">Business Blog</a>
+                <a href="playground.html" class="block py-2 text-cyan-400 font-semibold">App Playground</a>
+                <a href="index.html#contact" class="block py-2 text-gray-300 hover:text-indigo-400">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Banner -->
+    <header class="pt-32 pb-16 bg-slate-900/50 border-b border-slate-800/80 relative">
+        <div class="max-w-7xl mx-auto px-6 text-center reveal-on-scroll">
+            <div class="inline-flex items-center gap-2 py-1 px-4 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-4">
+                <i class="fas fa-terminal"></i> Centralized Application Control Plane
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-space leading-tight mb-4">
+                Xennials <span class="gradient-text-cyan">App Playground</span>
+            </h1>
+            <p class="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg font-light leading-relaxed">
+                Launch, monitor, and interact with all your installed web services, ERP modules, CMS instances, and autonomous AI engines from one unified dashboard.
+            </p>
+        </div>
+    </header>
+
+    <!-- App Categories & Cards -->
+    <main class="py-16 max-w-7xl mx-auto px-6 space-y-16">
+        
+        <!-- Section 1: Active Web Applications & Frontends -->
+        <section id="web-apps">
+            <div class="flex items-center justify-between mb-8 border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold font-space text-white flex items-center gap-3">
+                        <i class="fas fa-layer-group text-cyan-400"></i> Core Web Applications &amp; Microservices
+                    </h2>
+                    <p class="text-gray-400 text-xs mt-1">Live frontend servers, headless CMS platforms, and hosting environments.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- App 1: Next.js Website Builder -->
+                <div class="bg-slate-900/70 rounded-2xl border border-slate-800 p-6 glass-panel flex flex-col justify-between hover:border-cyan-500/40 transition-all">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-950/80 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-xl">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <span class="px-2.5 py-1 bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 text-xs font-mono rounded-full flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Active :8787
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold font-space text-white mb-2">Next.js Web Builder</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                            Modern Next.js 15 page rendering engine with Webiny CMS integration, dynamic block composition, and responsive styling.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                        <span class="text-xs text-gray-500 font-mono">http://localhost:8787/</span>
+                        <a href="http://localhost:8787/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5">
+                            Open App <i class="fas fa-external-link-alt text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- App 2: Webiny Serverless CMS -->
+                <div class="bg-slate-900/70 rounded-2xl border border-slate-800 p-6 glass-panel flex flex-col justify-between hover:border-pink-500/40 transition-all">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-pink-950/80 border border-pink-500/30 flex items-center justify-center text-pink-400 text-xl">
+                                <i class="fas fa-cubes"></i>
+                            </div>
+                            <span class="px-2.5 py-1 bg-indigo-950/80 text-indigo-400 border border-indigo-500/30 text-xs font-mono rounded-full">
+                                AWS Serverless
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold font-space text-white mb-2">Webiny Serverless CMS</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                            Enterprise headless CMS with GraphQL API, Page Builder, Form Builder, and multi-tenant content delivery.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                        <span class="text-xs text-gray-500 font-mono">scratch/my-cms</span>
+                        <button onclick="showToast('Webiny CLI Ready: yarn webiny deploy --env dev', 'success')" class="px-4 py-2 bg-pink-600 hover:bg-pink-500 text-white rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5">
+                            <i class="fas fa-cloud-upload-alt"></i> Deploy Info
+                        </button>
+                    </div>
+                </div>
+
+                <!-- App 3: Odoo ERP Suite -->
+                <div class="bg-slate-900/70 rounded-2xl border border-slate-800 p-6 glass-panel flex flex-col justify-between hover:border-purple-500/40 transition-all">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-950/80 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <span class="px-2.5 py-1 bg-purple-950/80 text-purple-400 border border-purple-500/30 text-xs font-mono rounded-full">
+                                Port :8069
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold font-space text-white mb-2">Odoo 18 ERP &amp; Finance</h3>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                            Complete business suite: CRM pipelines, Sales Orders, Account Invoicing, Inventory Quants, and HR management.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                        <span class="text-xs text-gray-500 font-mono">docker/odoo-stack.yml</span>
+                        <button onclick="showToast('Odoo Stack: docker compose -f docker/odoo-stack.yml up -d', 'success')" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5">
+                            <i class="fas fa-server"></i> Stack CLI
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Interactive AI Offer & Proposal Simulator -->
+        <section id="generator" class="bg-gradient-to-br from-indigo-950/30 to-pink-950/30 p-8 rounded-3xl border border-indigo-500/30 glass-panel">
+            <div class="mb-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-pink-950/80 border border-pink-500/30 rounded-full text-pink-300 text-xs font-mono mb-2">
+                    <i class="fas fa-magic"></i> Live Proposal Simulator
+                </div>
+                <h2 class="text-2xl font-bold font-space text-white">Xennials High-Ticket Offer &amp; Revenue Modeling Engine</h2>
+                <p class="text-gray-400 text-xs">Simulate custom client proposals, economics, and retainers across top 2030 verticals.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Controls -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Target Client Name</label>
+                        <input type="text" id="sim-client" value="Apex Global Solutions" class="w-full px-4 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-gray-200 text-sm focus:border-pink-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">2030 Industry Sector</label>
+                        <select id="sim-industry" class="w-full px-4 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-gray-200 text-sm focus:border-pink-500 focus:outline-none">
+                            <option value="ai_automation">AI &amp; Automation Services ($813B TAM)</option>
+                            <option value="cybersecurity">Cybersecurity &amp; SAST Audit ($376B TAM)</option>
+                            <option value="ecommerce">E-Commerce &amp; DTC Brands ($7.4T TAM)</option>
+                            <option value="fintech_invoicing">Fintech &amp; Odoo Accounting ($608B TAM)</option>
+                            <option value="creator_media">Creator Economy &amp; Media ($480B TAM)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Target Monthly Revenue (MRR)</label>
+                        <input type="number" id="sim-mrr" value="15000" step="1000" class="w-full px-4 py-2.5 bg-slate-900/90 border border-slate-700 rounded-xl text-gray-200 text-sm focus:border-pink-500 focus:outline-none">
+                    </div>
+                    <button onclick="runProposalSimulator()" class="w-full py-3.5 bg-gradient-to-r from-pink-600 to-indigo-600 hover:from-pink-700 hover:to-indigo-700 text-white font-semibold rounded-xl text-sm transition-all shadow-lg shadow-pink-600/30 flex items-center justify-center gap-2">
+                        <i class="fas fa-bolt"></i> Generate Proposal Specs
+                    </button>
+                </div>
+
+                <!-- Simulation Output -->
+                <div class="lg:col-span-7 bg-slate-900/90 border border-slate-800 rounded-2xl p-6 font-mono text-xs text-gray-300 space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <span class="text-indigo-400 font-bold">XENNIALS PROPOSAL OUTPUT</span>
+                        <span class="text-emerald-400" id="sim-status">READY</span>
+                    </div>
+                    <div id="sim-output" class="space-y-3 whitespace-pre-wrap leading-relaxed text-gray-300">
+Click 'Generate Proposal Specs' to run the Xennials Monetization Engine simulator.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: AI Toolset & Command Center -->
+        <section id="ai-tools">
+            <div class="flex items-center justify-between mb-8 border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold font-space text-white flex items-center gap-3">
+                        <i class="fas fa-terminal text-pink-400"></i> AI Agent Command Center &amp; Skill Toolset
+                    </h2>
+                    <p class="text-gray-400 text-xs mt-1">Direct Hermes Agent skills available in your workspace.</p>
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 hover:border-indigo-500/40 transition-colors">
+                    <i class="fas fa-user-secret text-2xl text-indigo-400 mb-3"></i>
+                    <h4 class="font-bold font-space text-base text-white">Sherlock OSINT</h4>
+                    <p class="text-gray-400 text-xs mt-1 mb-3">Username intelligence across 400+ platforms.</p>
+                    <code class="block bg-slate-950 p-2 rounded text-[11px] text-indigo-300 font-mono">sherlock username</code>
+                </div>
+
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 hover:border-pink-500/40 transition-colors">
+                    <i class="fas fa-file-invoice text-2xl text-pink-400 mb-3"></i>
+                    <h4 class="font-bold font-space text-base text-white">PaddleOCR Vision</h4>
+                    <p class="text-gray-400 text-xs mt-1 mb-3">Multilingual OCR for documents &amp; tables.</p>
+                    <code class="block bg-slate-950 p-2 rounded text-[11px] text-pink-300 font-mono">paddleocr --image_dir doc.png</code>
+                </div>
+
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition-colors">
+                    <i class="fas fa-video text-2xl text-cyan-400 mb-3"></i>
+                    <h4 class="font-bold font-space text-base text-white">SadTalker Lip-Sync</h4>
+                    <p class="text-gray-400 text-xs mt-1 mb-3">Speech-driven portrait and talking video generation.</p>
+                    <code class="block bg-slate-950 p-2 rounded text-[11px] text-cyan-300 font-mono">python inference.py --still</code>
+                </div>
+
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 hover:border-amber-500/40 transition-colors">
+                    <i class="fas fa-shield-alt text-2xl text-amber-400 mb-3"></i>
+                    <h4 class="font-bold font-space text-base text-white">Cybersecurity SAST</h4>
+                    <p class="text-gray-400 text-xs mt-1 mb-3">Defensive code &amp; secret audit scanner.</p>
+                    <code class="block bg-slate-950 p-2 rounded text-[11px] text-amber-300 font-mono">gitleaks detect --source .</code>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800/80 pt-16 pb-8 text-sm text-gray-400">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div class="md:col-span-2">
+                    <a href="index.html" class="text-2xl font-bold font-space flex items-center gap-3 mb-4">
+                        <img src="assets/images/xennials_logo.jpg" alt="Xennials Logo" class="h-8 w-auto object-contain rounded">
+                        <span class="gradient-text">Xennials</span>
+                    </a>
+                    <p class="text-gray-400 max-w-md leading-relaxed mb-4 text-xs sm:text-sm">
+                        Bridging analog vibration with digital precision through AI automation, web development, and enterprise intelligence.
+                    </p>
+                    <p class="text-gray-500 text-xs">&copy; 2026 Xennials. All Rights Reserved.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold font-space text-gray-200 mb-4 uppercase text-xs tracking-wider">Quick Navigation</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="index.html" class="hover:text-indigo-400 transition-colors">Home Portal</a></li>
+                        <li><a href="blog.html" class="text-pink-400 font-semibold transition-colors">Business Blog</a></li>
+                        <li><a href="playground.html" class="text-cyan-400 font-semibold transition-colors">App Playground</a></li>
+                        <li><a href="index.html#calculator" class="hover:text-indigo-400 transition-colors">ROI Calculator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold font-space text-gray-200 mb-4 uppercase text-xs tracking-wider">Connect</h4>
+                    <a href="https://github.com/teefisher2k20" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors text-lg"><i class="fab fa-github"></i></a>
+                    <p class="text-gray-500 text-xs font-mono mt-2">teefisher2k20@github.com</p>
+                </div>
+            </div>
+            <div class="border-t border-slate-800/80 pt-8 text-xs text-gray-500 text-center">
+                Xennial Generation: Bridging Analog Foundations &amp; AI Digital Precision.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back To Top Button -->
+    <button id="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Custom Script & Simulator Logic -->
+    <script src="script.js" defer></script>
+    <script>
+        function runProposalSimulator() {
+            const client = document.getElementById('sim-client').value || 'Target Enterprise';
+            const industry = document.getElementById('sim-industry').value;
+            const mrr = parseInt(document.getElementById('sim-mrr').value, 10) || 10000;
+
+            const tiers = {
+                ai_automation: { name: 'AI & Automation Services', build: 6500, retainer: 2000, tam: '$813 Billion' },
+                cybersecurity: { name: 'Cybersecurity & Posture Audit', build: 9000, retainer: 3000, tam: '$376 Billion' },
+                ecommerce: { name: 'E-Commerce & DTC Brands', build: 5500, retainer: 1500, tam: '$7.4 Trillion' },
+                fintech_invoicing: { name: 'Fintech & Odoo Operations', build: 12000, retainer: 2500, tam: '$608 Billion' },
+                creator_media: { name: 'Creator & Media Repurposing', build: 4500, retainer: 1800, tam: '$480 Billion' }
+            };
+
+            const data = tiers[industry] || tiers.ai_automation;
+            const retainersNeeded = Math.max(1, Math.round(mrr / data.retainer));
+            const netProfit = mrr - 200;
+            const margin = ((netProfit / mrr) * 100).toFixed(1);
+
+            const output = `==========================================================
+XENNIALS ENTERPRISE PROPOSAL & ECONOMICS BLUEPRINT
+==========================================================
+Client Organization : ${client}
+Target Vertical     : ${data.name}
+2030 Sector TAM     : ${data.tam}
+Target MRR          : $${mrr.toLocaleString()} / month
+
+PACKAGE TIERS:
+• Phase 1: 360° Discovery & Systems Audit   : $997 (3 Days)
+• Phase 2: Full System Build & Integration  : $${data.build.toLocaleString()} (One-Time)
+• Phase 3: Executive AI Concierge Retainer  : $${data.retainer.toLocaleString()} / month
+
+SOLO SCALE MARGIN BREAKDOWN:
+• Active Retainers Needed : ${retainersNeeded} clients
+• Monthly Software Overhead: $200 / month (One-Person AI Stack)
+• Net Monthly Profit      : $${netProfit.toLocaleString()} / month
+• Net Profit Margin       : ${margin}%
+
+STATUS: PROPOSAL GENERATED & READY FOR DEPLOYMENT.`;
+
+            document.getElementById('sim-output').textContent = output;
+            document.getElementById('sim-status').textContent = 'GENERATED';
+            showToast('Proposal generated successfully!', 'success');
+        }
+    </script>
+</body>
+</html>

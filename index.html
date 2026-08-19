@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xennials | AI Automation, Enterprise Web & Intelligence</title>
+    <meta name="description" content="AI Automation & Web Development by Xennials - Transforming ideas into digital reality with intelligent automation solutions and high-performance web applications.">
+    <meta name="keywords" content="AI Automation, Web Development, n8n, Activepieces, React, TailwindCSS, Python, AI Agents, Odoo ERP, Xennials">
+    <meta property="og:title" content="Xennials | AI Automation & Web Development">
+    <meta property="og:description" content="Bridging analog vibration with digital precision through intelligent AI automation and web development.">
+    <meta property="og:type" content="website">
+    
+    <!-- Preload Fonts & Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#0b0f19] text-gray-200 overflow-x-hidden relative">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-slate-800/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-2xl font-bold font-space flex items-center gap-3 group">
+                    <img src="assets/images/xennials_logo.jpg" alt="Xennials Logo" class="h-9 w-auto object-contain rounded-md shadow-md">
+                    <span class="gradient-text tracking-tight hidden sm:inline">Xennials</span>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                    <a href="index.html" class="text-indigo-400 font-semibold transition-colors">Home</a>
+                    <a href="#about" class="hover:text-indigo-400 transition-colors">About</a>
+                    <a href="#services" class="hover:text-indigo-400 transition-colors">Services</a>
+                    <a href="#projects" class="hover:text-indigo-400 transition-colors">Projects</a>
+                    <a href="#calculator" class="hover:text-indigo-400 transition-colors">ROI Calculator</a>
+                    <a href="blog.html" class="text-pink-400 hover:text-pink-300 transition-colors flex items-center gap-1.5 font-semibold">
+                        <i class="fas fa-book-open text-xs"></i> Blog
+                    </a>
+                    <a href="playground.html" class="text-cyan-400 hover:text-cyan-300 transition-colors flex items-center gap-1.5 font-semibold">
+                        <i class="fas fa-cubes text-xs"></i> App Playground
+                    </a>
+                    <a href="#contact" class="hover:text-indigo-400 transition-colors">Contact</a>
+                    
+                    <!-- Theme Switcher -->
+                    <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-800 p-1 rounded-full">
+                        <button class="theme-option w-5 h-5 rounded-full bg-indigo-500 hover:scale-110 transition-transform" data-theme-name="default" title="Indigo & Pink"></button>
+                        <button class="theme-option w-5 h-5 rounded-full bg-cyan-500 hover:scale-110 transition-transform" data-theme-name="cyan" title="Cyber Cyan & Emerald"></button>
+                        <button class="theme-option w-5 h-5 rounded-full bg-purple-500 hover:scale-110 transition-transform" data-theme-name="purple" title="Deep Purple & Amber"></button>
+                    </div>
+
+                    <div class="h-4 w-px bg-slate-800"></div>
+                    <a href="https://github.com/teefisher2k20" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="text-gray-400 hover:text-white transition-colors text-lg">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                
+                <button class="md:hidden text-gray-300 hover:text-white focus:outline-none" id="mobile-menu-btn" aria-label="Toggle Navigation">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="hidden md:hidden mt-4 py-4 px-6 bg-slate-900/95 border border-slate-800 rounded-xl space-y-3" id="mobile-menu">
+                <a href="index.html" class="block py-2 text-indigo-400 font-semibold">Home</a>
+                <a href="#about" class="block py-2 text-gray-300 hover:text-indigo-400">About</a>
+                <a href="#services" class="block py-2 text-gray-300 hover:text-indigo-400">Services</a>
+                <a href="#projects" class="block py-2 text-gray-300 hover:text-indigo-400">Projects</a>
+                <a href="#calculator" class="block py-2 text-gray-300 hover:text-indigo-400">ROI Calculator</a>
+                <a href="blog.html" class="block py-2 text-pink-400 font-semibold">Blog Articles</a>
+                <a href="playground.html" class="block py-2 text-cyan-400 font-semibold">App Playground</a>
+                <a href="#contact" class="block py-2 text-gray-300 hover:text-indigo-400">Contact</a>
+                <div class="flex space-x-6 pt-3 border-t border-slate-800">
+                    <a href="https://github.com/teefisher2k20" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" title="GitHub Profile" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center pt-28 pb-16 relative overflow-hidden">
+        <canvas id="hero-canvas"></canvas>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 text-center lg:text-left reveal-on-scroll">
+                    <div class="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-gradient-to-r from-indigo-950/60 to-pink-950/60 border border-indigo-500/30 text-indigo-300 text-xs font-semibold uppercase tracking-wider mb-6">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        AI Automation & Enterprise Web
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-space leading-tight mb-6">
+                        Bridging analog <br class="hidden sm:block">
+                        <span class="gradient-text">vibration</span> with <br class="hidden sm:block">
+                        digital precision
+                    </h1>
+                    <p class="text-lg sm:text-xl text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                        Transforming complex ideas into intelligent automation solutions, custom ERP systems, and high-converting web applications.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="playground.html" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-xl text-white font-semibold hover:from-indigo-700 hover:to-pink-700 transition-all transform hover:scale-[1.03] shadow-lg shadow-indigo-600/30 text-center flex items-center justify-center gap-2">
+                            <i class="fas fa-play-circle"></i> Launch App Playground
+                        </a>
+                        <a href="blog.html" class="w-full sm:w-auto px-8 py-3.5 border border-slate-700 hover:border-pink-500 rounded-xl text-gray-200 font-semibold hover:bg-slate-800/60 transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fas fa-book-open"></i> Read Business Blog
+                        </a>
+                        <a href="https://github.com/teefisher2k20" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-6 py-3.5 bg-slate-900 border border-slate-800 rounded-xl text-gray-300 hover:text-white hover:bg-slate-800 transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fab fa-github text-lg"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-5 relative reveal-on-scroll">
+                    <div class="relative z-10 animate-float">
+                        <div class="rounded-2xl overflow-hidden border border-indigo-500/30 shadow-2xl shadow-indigo-500/20 bg-slate-900/80 backdrop-blur-sm p-4 text-center">
+                            <img src="assets/images/xennials_logo.jpg" alt="Xennials Metallic Logo" class="w-full h-auto rounded-xl object-contain mx-auto mb-4 max-h-56">
+                            <div class="p-4 bg-slate-900/90 rounded-xl border border-slate-800 flex items-center justify-between text-left">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
+                                        <span class="text-xs font-mono text-gray-300 font-bold">Xennials Autonomous Fleet</span>
+                                    </div>
+                                    <p class="text-[11px] text-gray-400 mt-0.5">Odoo ERP • Hermes Agent • Webiny CMS</p>
+                                </div>
+                                <span class="text-xs font-mono text-indigo-400 bg-indigo-950/80 px-2.5 py-1 rounded-full border border-indigo-500/30">v3.0 Live</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -top-10 -right-10 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -bottom-10 -left-10 w-72 h-72 bg-pink-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-slate-900/60 relative border-t border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-3xl sm:text-4xl font-bold font-space mb-4">About <span class="gradient-text">Xennials</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5 reveal-on-scroll">
+                    <div class="relative group">
+                        <div class="w-full rounded-2xl overflow-hidden border border-slate-700 shadow-2xl bg-slate-800 p-6 text-center">
+                            <img src="assets/images/xennials_logo.jpg" alt="Xennials Brand Identity" class="w-full h-auto rounded-xl object-contain mx-auto shadow-lg">
+                        </div>
+                        <div class="absolute -bottom-5 -right-5 w-48 h-48 bg-gradient-to-br from-indigo-600/20 to-pink-600/20 rounded-2xl -z-10 blur-xl"></div>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-7 reveal-on-scroll">
+                    <h3 class="text-2xl sm:text-3xl font-bold font-space mb-6">Bridging Analog Roots &amp; AI Digital Fluency</h3>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        As a Xennial, I bring a unique perspective shaped by both analog foundations and digital fluency. This background enables me to understand complex real-world workflows while building human-centered, automated digital solutions.
+                    </p>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        I specialize in AI automation, Odoo business infrastructure, and high-performance web engineering. From crafting end-to-end autonomous workflows using n8n to building multi-agent AI ecosystems, I bridge the gap between technical complexity and effortless execution.
+                    </p>
+                    
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div class="p-5 bg-slate-800/60 rounded-xl border border-slate-700/80 text-center hover:border-indigo-500/50 transition-colors">
+                            <div class="text-3xl sm:text-4xl font-bold font-space gradient-text mb-1" data-counter="12" data-suffix="+">0</div>
+                            <div class="text-xs text-gray-400 font-medium uppercase tracking-wider">Years Experience</div>
+                        </div>
+                        <div class="p-5 bg-slate-800/60 rounded-xl border border-slate-700/80 text-center hover:border-indigo-500/50 transition-colors">
+                            <div class="text-3xl sm:text-4xl font-bold font-space gradient-text mb-1" data-counter="379" data-suffix="+">0</div>
+                            <div class="text-xs text-gray-400 font-medium uppercase tracking-wider">Projects Delivered</div>
+                        </div>
+                        <div class="p-5 bg-slate-800/60 rounded-xl border border-slate-700/80 text-center hover:border-indigo-500/50 transition-colors">
+                            <div class="text-3xl sm:text-4xl font-bold font-space gradient-text mb-1" data-counter="150" data-suffix="+">0</div>
+                            <div class="text-xs text-gray-400 font-medium uppercase tracking-wider">n8n Templates</div>
+                        </div>
+                        <div class="p-5 bg-slate-800/60 rounded-xl border border-slate-700/80 text-center hover:border-indigo-500/50 transition-colors">
+                            <div class="text-3xl sm:text-4xl font-bold font-space gradient-text mb-1" data-counter="100" data-suffix="%">0</div>
+                            <div class="text-xs text-gray-400 font-medium uppercase tracking-wider">Client Delight</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-3xl sm:text-4xl font-bold font-space mb-4">Core <span class="gradient-text">Services</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 mx-auto rounded-full"></div>
+                <p class="text-gray-400 mt-4 max-w-xl mx-auto">Tailored technological solutions engineered for efficiency, intelligence, and modern scale.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card p-8 rounded-2xl border border-slate-800 bg-slate-900/50 glass-panel flex flex-col justify-between reveal-on-scroll">
+                    <div>
+                        <div class="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-indigo-600/30">
+                            <i class="fas fa-robot text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold font-space mb-4">AI Automation &amp; Agents</h3>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+                            Transform repetitive tasks into automated workflows using n8n, Hermes Agent, and custom AI tools. Create autonomous systems that scale effortlessly.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs font-medium text-indigo-300">n8n Workflows</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs font-medium text-indigo-300">Hermes Agents</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs font-medium text-indigo-300">AI OCR</span>
+                        </div>
+                        <a href="playground.html" class="text-indigo-400 hover:text-indigo-300 font-semibold text-sm inline-flex items-center gap-2">
+                            Explore in Playground <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card p-8 rounded-2xl border border-slate-800 bg-slate-900/50 glass-panel flex flex-col justify-between reveal-on-scroll">
+                    <div>
+                        <div class="w-16 h-16 bg-gradient-to-br from-pink-600 to-rose-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-pink-600/30">
+                            <i class="fas fa-code text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold font-space mb-4">Enterprise Web &amp; CMS</h3>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+                            Build modern, ultra-fast applications with React, Next.js, Webiny Serverless CMS, and TailwindCSS for seamless digital experiences.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs font-medium text-pink-300">Next.js 15</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs font-medium text-pink-300">Webiny CMS</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs font-medium text-pink-300">CapRover PaaS</span>
+                        </div>
+                        <a href="playground.html#web-apps" class="text-pink-400 hover:text-pink-300 font-semibold text-sm inline-flex items-center gap-2">
+                            View Live Apps <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card p-8 rounded-2xl border border-slate-800 bg-slate-900/50 glass-panel flex flex-col justify-between reveal-on-scroll">
+                    <div>
+                        <div class="w-16 h-16 bg-gradient-to-br from-cyan-600 to-blue-600 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-cyan-600/30">
+                            <i class="fas fa-briefcase text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold font-space mb-4">Odoo ERP &amp; Monetization</h3>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+                            Complete business suite integration covering CRM, Invoicing, Inventory, HR, and high-ticket AI agency monetization architectures.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs font-medium text-cyan-300">Odoo 18 ERP</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs font-medium text-cyan-300">CRM Pipelines</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-xs font-medium text-cyan-300">Revenue Models</span>
+                        </div>
+                        <a href="blog.html" class="text-cyan-400 hover:text-cyan-300 font-semibold text-sm inline-flex items-center gap-2">
+                            Read Strategy Playbooks <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator Section -->
+    <section id="calculator" class="py-24 relative overflow-hidden bg-slate-900/40 border-t border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-3xl sm:text-4xl font-bold font-space mb-4">AI Automation <span class="gradient-text">ROI Calculator</span></h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Estimate annual time and financial savings when deploying Xennials AI automation and n8n workflows across your team.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <!-- Inputs -->
+                <div class="lg:col-span-7 bg-slate-900/80 p-8 rounded-2xl border border-slate-800 glass-panel reveal-on-scroll space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="calc-team" class="font-semibold text-sm text-gray-200">Team Size</label>
+                            <span id="calc-team-val" class="font-mono text-indigo-400 font-bold text-lg">5</span>
+                        </div>
+                        <input type="range" id="calc-team" min="1" max="50" value="5" class="w-full" aria-label="Team Size">
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="calc-hours" class="font-semibold text-sm text-gray-200">Manual Task Hours / Week / Person</label>
+                            <span id="calc-hours-val" class="font-mono text-indigo-400 font-bold text-lg">10 hrs/wk</span>
+                        </div>
+                        <input type="range" id="calc-hours" min="1" max="30" value="10" class="w-full" aria-label="Manual Task Hours per Week">
+                    </div>
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="calc-rate" class="font-semibold text-sm text-gray-200">Average Blended Hourly Rate</label>
+                            <span id="calc-rate-val" class="font-mono text-indigo-400 font-bold text-lg">$65/hr</span>
+                        </div>
+                        <input type="range" id="calc-rate" min="20" max="200" value="65" step="5" class="w-full" aria-label="Average Blended Hourly Rate">
+                    </div>
+                </div>
+                
+                <!-- Results Card -->
+                <div class="lg:col-span-5 reveal-on-scroll">
+                    <div class="bg-gradient-to-br from-indigo-950/60 to-pink-950/60 p-8 rounded-2xl border border-indigo-500/40 shadow-2xl space-y-6 text-center">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-900/60 rounded-full text-indigo-300 text-xs font-mono">
+                            <i class="fas fa-bolt text-amber-400"></i> Projected 75% Automation Efficiency
+                        </div>
+                        
+                        <div>
+                            <p class="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Estimated Annual Time Saved</p>
+                            <div id="res-hours-saved" class="text-4xl sm:text-5xl font-bold font-space gradient-text">1,950 hrs</div>
+                        </div>
+                        
+                        <div class="pt-4 border-t border-slate-800">
+                            <p class="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Estimated Annual Cost Savings</p>
+                            <div id="res-money-saved" class="text-4xl sm:text-5xl font-bold font-space text-emerald-400">$126,750</div>
+                        </div>
+                        
+                        <div class="pt-4">
+                            <a href="#contact" class="inline-block w-full py-3.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-white font-semibold transition-colors">
+                                Schedule Automation Discovery &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800/80 pt-16 pb-8 text-sm text-gray-400">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div class="md:col-span-2">
+                    <a href="index.html" class="text-2xl font-bold font-space flex items-center gap-3 mb-4">
+                        <img src="assets/images/xennials_logo.jpg" alt="Xennials Logo" class="h-8 w-auto object-contain rounded">
+                        <span class="gradient-text">Xennials</span>
+                    </a>
+                    <p class="text-gray-400 max-w-md leading-relaxed mb-4 text-xs sm:text-sm">
+                        Bridging analog vibration with digital precision through AI automation and web development. Engineering intelligent solutions that scale seamlessly.
+                    </p>
+                    <p class="text-gray-500 text-xs">
+                        &copy; 2026 Xennials. All Rights Reserved.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold font-space text-gray-200 mb-4 uppercase text-xs tracking-wider">Quick Navigation</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="index.html" class="hover:text-indigo-400 transition-colors">Home Portal</a></li>
+                        <li><a href="blog.html" class="text-pink-400 hover:text-pink-300 font-semibold transition-colors">Business Blog</a></li>
+                        <li><a href="playground.html" class="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors">App Playground</a></li>
+                        <li><a href="#about" class="hover:text-indigo-400 transition-colors">About Xennials</a></li>
+                        <li><a href="#services" class="hover:text-indigo-400 transition-colors">Services</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold font-space text-gray-200 mb-4 uppercase text-xs tracking-wider">Connect</h4>
+                    <div class="flex space-x-3 mb-4 text-lg">
+                        <a href="https://github.com/teefisher2k20" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="hover:text-white transition-colors"><i class="fab fa-github"></i></a>
+                    </div>
+                    <p class="text-gray-500 text-xs font-mono">teefisher2k20@github.com</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800/80 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+                <div>
+                    Xennial Generation: Bridging Analog Foundations &amp; AI Digital Precision.
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://github.com/teefisher2k20" target="_blank" rel="noopener noreferrer" class="hover:text-gray-300">GitHub Profile</a>
+                    <span>&bull;</span>
+                    <a href="playground.html" class="hover:text-gray-300">App Playground</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back To Top Button -->
+    <button id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Custom Script -->
+    <script src="script.js" defer></script>
+</body>
+</html>
