@@ -312,3 +312,95 @@ input[type=range]::-webkit-slider-thumb:hover {
     transform: translateY(-3px);
     box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
 }
+
+/* Dribbble SaaS Style Additions */
+.bento-card {
+    background: radial-gradient(120% 120% at 50% 0%, rgba(30, 41, 59, 0.5) 0%, rgba(11, 15, 25, 0.8) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.bento-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.bento-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.4);
+    box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.25);
+}
+
+.flow-line {
+    stroke-dasharray: 6;
+    animation: flowPulse 20s linear infinite;
+}
+
+@keyframes flowPulse {
+    from { stroke-dashoffset: 200; }
+    to { stroke-dashoffset: 0; }
+}
+
+.marquee-container {
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    gap: 3rem;
+    animation: marqueeScroll 28s linear infinite;
+    width: max-content;
+}
+
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.glow-card {
+    position: relative;
+}
+
+.glow-card::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(236, 72, 153, 0.4), rgba(234, 179, 8, 0.4));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.glow-card:hover::after {
+    opacity: 1;
+}
+
+/* Accordion */
+.faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+}
+
+.faq-item.open .faq-content {
+    max-height: 500px;
+    transition: max-height 0.35s cubic-bezier(1, 0, 1, 0);
+}
+
+.faq-item.open .faq-icon {
+    transform: rotate(45deg);
+}
+
