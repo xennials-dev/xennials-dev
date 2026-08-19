@@ -3,6 +3,9 @@
  * Interactive Script Module - Audited & Performance Optimized
  */
 
+import { AIModelRouter } from './services/aiModelRouter.js';
+import { ARTIFACTS } from './services/artifactsData.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     initHeroParticles();
     initMobileMenu();
@@ -14,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initThemeSwitcher();
     initContactForm();
     initBackToTop();
+    initFaqAccordion();
+    initAIRouterWorkbench();
+    initArtifactsStudio();
 });
 
 /* Hero Background Ambient Canvas */
@@ -133,6 +139,7 @@ function initMobileMenu() {
 /* Intersection Observer Scroll Reveal */
 function initScrollReveal() {
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    if (!revealElements.length) return;
 
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
@@ -152,6 +159,7 @@ function initScrollReveal() {
 /* Animated Number Counter for Stats */
 function initCounterAnimations() {
     const counters = document.querySelectorAll('[data-counter]');
+    if (!counters.length) return;
 
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
@@ -184,6 +192,7 @@ function initCounterAnimations() {
 function initProjectFiltering() {
     const buttons = document.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.repo-card');
+    if (!buttons.length || !cards.length) return;
 
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -234,9 +243,9 @@ function initSavingsCalculator() {
         const hours = parseInt(hoursInput.value, 10) || 0;
         const rate = parseInt(rateInput.value, 10) || 0;
 
-        teamVal.textContent = team;
-        hoursVal.textContent = hours + ' hrs/wk';
-        rateVal.textContent = '$' + rate + '/hr';
+        if (teamVal) teamVal.textContent = `${team} members`;
+        if (hoursVal) hoursVal.textContent = `${hours} hrs/wk`;
+        if (rateVal) rateVal.textContent = `$${rate} / hr`;
 
         const weeklyHoursSaved = Math.round(team * hours * 0.75);
         const annualHoursSaved = weeklyHoursSaved * 52;
@@ -312,22 +321,26 @@ function initProjectModal() {
             const data = projectData[key];
             if (!data) return;
 
-            document.getElementById('modal-title').textContent = data.title;
-            document.getElementById('modal-category').textContent = data.category;
-            document.getElementById('modal-description').textContent = data.description;
-            
+            const modalTitle = document.getElementById('modal-title');
+            const modalCategory = document.getElementById('modal-category');
+            const modalDescription = document.getElementById('modal-description');
             const modalLink = document.getElementById('modal-link');
-            modalLink.href = data.url;
-
             const techContainer = document.getElementById('modal-tech');
-            techContainer.replaceChildren();
 
-            data.tech.forEach(t => {
-                const badge = document.createElement('span');
-                badge.className = 'px-3 py-1 bg-slate-800 border border-slate-700 text-indigo-300 rounded-full text-xs font-mono';
-                badge.textContent = t;
-                techContainer.appendChild(badge);
-            });
+            if (modalTitle) modalTitle.textContent = data.title;
+            if (modalCategory) modalCategory.textContent = data.category;
+            if (modalDescription) modalDescription.textContent = data.description;
+            if (modalLink) modalLink.href = data.url;
+
+            if (techContainer) {
+                techContainer.replaceChildren();
+                data.tech.forEach(t => {
+                    const badge = document.createElement('span');
+                    badge.className = 'px-3 py-1 bg-slate-800 border border-slate-700 text-indigo-300 rounded-full text-xs font-mono';
+                    badge.textContent = t;
+                    techContainer.appendChild(badge);
+                });
+            }
 
             modal.classList.add('active');
             modal.setAttribute('aria-hidden', 'false');
@@ -354,6 +367,8 @@ function initProjectModal() {
 /* Theme Accent Switcher */
 function initThemeSwitcher() {
     const btns = document.querySelectorAll('.theme-option');
+    if (!btns.length) return;
+
     btns.forEach(btn => {
         btn.addEventListener('click', () => {
             const theme = btn.getAttribute('data-theme-name');
@@ -379,7 +394,7 @@ function initContactForm() {
         const emailInput = document.getElementById('contact-email');
         const messageInput = document.getElementById('contact-message');
 
-        if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
+        if (!nameInput?.value.trim() || !emailInput?.value.trim() || !messageInput?.value.trim()) {
             showToast('Please fill out all required fields.', 'error');
             return;
         }
@@ -399,7 +414,7 @@ function initContactForm() {
 }
 
 /* Toast Message Display */
-function showToast(message, type = 'success') {
+export function showToast(message, type = 'success') {
     let toast = document.getElementById('toast');
     if (!toast) {
         toast = document.createElement('div');
@@ -418,6 +433,9 @@ function showToast(message, type = 'success') {
         toast.classList.remove('show');
     }, 3500);
 }
+
+// Make showToast accessible globally for inline card clicks
+window.showToast = showToast;
 
 function escapeHtml(str) {
     const div = document.createElement('div');
@@ -452,9 +470,21 @@ function initBackToTop() {
     });
 }
 
-// AI Free Tier Model Router Interactive Workbench Handler
-import { AIModelRouter } from './services/aiModelRouter.js';
+/* Interactive FAQ Accordion */
+function initFaqAccordion() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    if (!faqItems.length) return;
 
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const wasOpen = item.classList.contains('open');
+            faqItems.forEach(i => i.classList.remove('open'));
+            if (!wasOpen) item.classList.add('open');
+        });
+    });
+}
+
+/* AI Free Tier Model Router Interactive Workbench Handler */
 function initAIRouterWorkbench() {
     const dispatchBtn = document.getElementById('dispatchRouterBtn');
     if (!dispatchBtn) return;
@@ -483,24 +513,28 @@ function initAIRouterWorkbench() {
     // Sample prompts
     document.querySelectorAll('.sample-prompt').forEach(btn => {
         btn.addEventListener('click', () => {
-            promptInput.value = btn.dataset.p;
+            if (promptInput) promptInput.value = btn.dataset.p || '';
         });
     });
 
     dispatchBtn.addEventListener('click', async () => {
-        const prompt = promptInput.value.trim();
+        const prompt = promptInput?.value.trim() || '';
         if (!prompt) return;
 
-        const simulate429 = simulateToggle.checked;
+        const simulate429 = simulateToggle?.checked || false;
         dispatchBtn.disabled = true;
         dispatchBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Routing Prompt...`;
-        activeBadge.textContent = 'ROUTING...';
-        activeBadge.className = 'px-2 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] animate-pulse';
+        if (activeBadge) {
+            activeBadge.textContent = 'ROUTING...';
+            activeBadge.className = 'px-2 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] animate-pulse';
+        }
 
-        traceLogs.innerHTML = `<div>&gt; [${new Date().toLocaleTimeString()}] Ingesting prompt into Xennials AI Router...</div>` +
-                              `<div>&gt; Attempting Primary Provider: Google Gemini 1.5 Flash (Free Tier)...</div>`;
+        if (traceLogs) {
+            traceLogs.innerHTML = `<div>&gt; [${new Date().toLocaleTimeString()}] Ingesting prompt into Xennials AI Router...</div>` +
+                                  `<div>&gt; Attempting Primary Provider: Google Gemini 1.5 Flash (Free Tier)...</div>`;
+        }
 
-        outputText.textContent = 'Connecting to model stream...';
+        if (outputText) outputText.textContent = 'Connecting to model stream...';
 
         const startTime = Date.now();
 
@@ -510,49 +544,65 @@ function initAIRouterWorkbench() {
             });
 
             const latency = Date.now() - startTime;
-            telemetryLatency.textContent = `${latency}ms`;
-            telemetryModel.textContent = result.provider.name;
+            if (telemetryLatency) telemetryLatency.textContent = `${latency}ms`;
+            if (telemetryModel) telemetryModel.textContent = result.provider.name;
 
             if (result.provider.isFallback) {
                 failoverTotal++;
-                telemetryFailover.textContent = `${failoverTotal}`;
+                if (telemetryFailover) telemetryFailover.textContent = `${failoverTotal}`;
 
                 // Update Google card to 429 rate limit
-                cardGoogle.className = 'p-4 rounded-2xl bg-slate-950/80 border border-red-500/50';
-                dotGoogle.className = 'w-2 h-2 rounded-full bg-red-400 animate-ping';
-                statusGoogle.textContent = 'STATUS: 429 EXHAUSTED (COOLDOWN)';
-                statusGoogle.className = 'mt-3 text-[10px] font-mono text-red-400 font-medium';
+                if (cardGoogle) cardGoogle.className = 'p-4 rounded-2xl bg-slate-950/80 border border-red-500/50';
+                if (dotGoogle) dotGoogle.className = 'w-2 h-2 rounded-full bg-red-400 animate-ping';
+                if (statusGoogle) {
+                    statusGoogle.textContent = 'STATUS: 429 EXHAUSTED (COOLDOWN)';
+                    statusGoogle.className = 'mt-3 text-[10px] font-mono text-red-400 font-medium';
+                }
 
                 // Update Groq card to Active Serving
-                cardGroq.className = 'p-4 rounded-2xl bg-slate-950/80 border border-emerald-500/50 shadow-lg shadow-emerald-500/10';
-                dotGroq.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
-                statusGroq.textContent = 'STATUS: SERVING (ACTIVE FALLBACK)';
-                statusGroq.className = 'mt-3 text-[10px] font-mono text-emerald-400 font-medium';
+                if (cardGroq) cardGroq.className = 'p-4 rounded-2xl bg-slate-950/80 border border-emerald-500/50 shadow-lg shadow-emerald-500/10';
+                if (dotGroq) dotGroq.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
+                if (statusGroq) {
+                    statusGroq.textContent = 'STATUS: SERVING (ACTIVE FALLBACK)';
+                    statusGroq.className = 'mt-3 text-[10px] font-mono text-emerald-400 font-medium';
+                }
 
-                activeBadge.textContent = 'FAILOVER SUCCESSFUL';
-                activeBadge.className = 'px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px]';
+                if (activeBadge) {
+                    activeBadge.textContent = 'FAILOVER SUCCESSFUL';
+                    activeBadge.className = 'px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px]';
+                }
 
-                traceLogs.innerHTML += `<div class="text-red-400">&gt; ⚠️ Google Gemini Free Tier 429 Exhaustion detected.</div>` +
-                                       `<div class="text-emerald-400">&gt; 🦙 Automatic Instant Failover triggered: ${result.provider.name}</div>` +
-                                       `<div>&gt; Execution completed in ${latency}ms with 0% downtime.</div>`;
+                if (traceLogs) {
+                    traceLogs.innerHTML += `<div class="text-red-400">&gt; ⚠️ Google Gemini Free Tier 429 Exhaustion detected.</div>` +
+                                           `<div class="text-emerald-400">&gt; 🦙 Automatic Instant Failover triggered: ${result.provider.name}</div>` +
+                                           `<div>&gt; Execution completed in ${latency}ms with 0% downtime.</div>`;
+                }
             } else {
-                cardGoogle.className = 'p-4 rounded-2xl bg-slate-950/80 border border-emerald-500/40';
-                dotGoogle.className = 'w-2 h-2 rounded-full bg-emerald-400';
-                statusGoogle.textContent = 'STATUS: SERVING (HEALTHY)';
-                statusGoogle.className = 'mt-3 text-[10px] font-mono text-emerald-400 font-medium';
+                if (cardGoogle) cardGoogle.className = 'p-4 rounded-2xl bg-slate-950/80 border border-emerald-500/40';
+                if (dotGoogle) dotGoogle.className = 'w-2 h-2 rounded-full bg-emerald-400';
+                if (statusGoogle) {
+                    statusGoogle.textContent = 'STATUS: SERVING (HEALTHY)';
+                    statusGoogle.className = 'mt-3 text-[10px] font-mono text-emerald-400 font-medium';
+                }
 
-                activeBadge.textContent = 'ROUTED (PRIMARY)';
-                activeBadge.className = 'px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 text-[10px]';
+                if (activeBadge) {
+                    activeBadge.textContent = 'ROUTED (PRIMARY)';
+                    activeBadge.className = 'px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 text-[10px]';
+                }
 
-                traceLogs.innerHTML += `<div class="text-emerald-400">&gt; Request successfully served by Google Gemini Free Tier.</div>` +
-                                       `<div>&gt; Execution completed in ${latency}ms.</div>`;
+                if (traceLogs) {
+                    traceLogs.innerHTML += `<div class="text-emerald-400">&gt; Request successfully served by Google Gemini Free Tier.</div>` +
+                                           `<div>&gt; Execution completed in ${latency}ms.</div>`;
+                }
             }
 
-            outputText.textContent = result.content;
+            if (outputText) outputText.textContent = result.content;
         } catch (err) {
-            outputText.textContent = `Router Error: ${err.message}`;
-            activeBadge.textContent = 'ERROR';
-            activeBadge.className = 'px-2 py-0.5 rounded bg-red-950 text-red-300 text-[10px]';
+            if (outputText) outputText.textContent = `Router Error: ${err.message}`;
+            if (activeBadge) {
+                activeBadge.textContent = 'ERROR';
+                activeBadge.className = 'px-2 py-0.5 rounded bg-red-950 text-red-300 text-[10px]';
+            }
         } finally {
             dispatchBtn.disabled = false;
             dispatchBtn.innerHTML = `<i class="fas fa-bolt"></i> Execute Router Dispatch`;
@@ -560,16 +610,7 @@ function initAIRouterWorkbench() {
     });
 }
 
-// Ensure initAIRouterWorkbench runs on page load
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAIRouterWorkbench);
-} else {
-    initAIRouterWorkbench();
-}
-
-// Claude-Style Interactive Artifacts Studio Handler
-import { ARTIFACTS } from './services/artifactsData.js';
-
+/* Claude-Style Interactive Artifacts Studio Handler */
 function initArtifactsStudio() {
     // 1. Home Page (#workflows) Artifact Viewer
     const indexPreviewContainer = document.getElementById('artifactPreviewContainer');
@@ -629,9 +670,10 @@ function initArtifactsStudio() {
         }
     });
 
-    document.querySelectorAll('#workflowTabContainer .wf-tab').forEach(tab => {
+    const workflowTabs = document.querySelectorAll('#workflowTabContainer .wf-tab');
+    workflowTabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            document.querySelectorAll('#workflowTabContainer .wf-tab').forEach(t => {
+            workflowTabs.forEach(t => {
                 t.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-lg');
                 t.classList.add('bg-slate-900', 'border', 'border-slate-700', 'text-gray-300');
             });
@@ -758,7 +800,7 @@ function initArtifactsStudio() {
                                 <span>PIPELINE_OUTCOME</span>
                                 <span class="text-emerald-400 font-bold">QUALIFIED &bull; TIER 1</span>
                             </div>
-                            <div class="text-indigo-300">&gt; Company: ${company}</div>
+                            <div class="text-indigo-300">&gt; Company: ${escapeHtml(company)}</div>
                             <div class="text-emerald-400">&gt; AI Intent Score: 99.1 / 100 (Autonomous Ingestion Complete)</div>
                             <div class="text-purple-300">&gt; Odoo Stage: 'Qualified Opportunity' Dispatched via n8n in 24ms</div>
                         `;
@@ -772,12 +814,3 @@ function initArtifactsStudio() {
         }
     }
 }
-
-// Initialize on DOM ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initArtifactsStudio);
-} else {
-    initArtifactsStudio();
-}
-
-
