@@ -567,3 +567,217 @@ if (document.readyState === 'loading') {
     initAIRouterWorkbench();
 }
 
+// Claude-Style Interactive Artifacts Studio Handler
+import { ARTIFACTS } from './services/artifactsData.js';
+
+function initArtifactsStudio() {
+    // 1. Home Page (#workflows) Artifact Viewer
+    const indexPreviewContainer = document.getElementById('artifactPreviewContainer');
+    const indexCodeContainer = document.getElementById('artifactCodeContainer');
+    const indexCodeText = document.getElementById('artifactCodeText');
+    const indexFilename = document.getElementById('artifactFilename');
+    const indexTitle = document.getElementById('artifactTitle');
+    const indexModePreviewBtn = document.getElementById('artifactModePreviewBtn');
+    const indexModeCodeBtn = document.getElementById('artifactModeCodeBtn');
+    const indexCopyBtn = document.getElementById('copyArtifactCodeBtn');
+
+    let currentHomeArtifact = ARTIFACTS[0];
+
+    function renderHomeArtifact(artifact, mode = 'preview') {
+        if (!indexPreviewContainer) return;
+        currentHomeArtifact = artifact;
+
+        if (indexFilename) indexFilename.textContent = artifact.filename;
+        if (indexTitle) indexTitle.textContent = artifact.title;
+
+        if (indexPreviewContainer) {
+            indexPreviewContainer.innerHTML = artifact.previewHtml;
+            attachArtifactInteractiveEvents(indexPreviewContainer);
+        }
+
+        if (indexCodeText) {
+            indexCodeText.textContent = artifact.code;
+        }
+
+        setHomeArtifactMode(mode);
+    }
+
+    function setHomeArtifactMode(mode) {
+        if (mode === 'preview') {
+            indexPreviewContainer?.classList.remove('hidden');
+            indexCodeContainer?.classList.add('hidden');
+            indexModePreviewBtn?.classList.add('bg-indigo-600', 'text-white');
+            indexModePreviewBtn?.classList.remove('text-gray-400');
+            indexModeCodeBtn?.classList.remove('bg-indigo-600', 'text-white');
+            indexModeCodeBtn?.classList.add('text-gray-400');
+        } else {
+            indexPreviewContainer?.classList.add('hidden');
+            indexCodeContainer?.classList.remove('hidden');
+            indexModeCodeBtn?.classList.add('bg-indigo-600', 'text-white');
+            indexModeCodeBtn?.classList.remove('text-gray-400');
+            indexModePreviewBtn?.classList.remove('bg-indigo-600', 'text-white');
+            indexModePreviewBtn?.classList.add('text-gray-400');
+        }
+    }
+
+    indexModePreviewBtn?.addEventListener('click', () => setHomeArtifactMode('preview'));
+    indexModeCodeBtn?.addEventListener('click', () => setHomeArtifactMode('code'));
+    indexCopyBtn?.addEventListener('click', () => {
+        if (currentHomeArtifact) {
+            navigator.clipboard.writeText(currentHomeArtifact.code);
+            showToast('Artifact source code copied to clipboard!', 'success');
+        }
+    });
+
+    document.querySelectorAll('#workflowTabContainer .wf-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('#workflowTabContainer .wf-tab').forEach(t => {
+                t.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-lg');
+                t.classList.add('bg-slate-900', 'border', 'border-slate-700', 'text-gray-300');
+            });
+            tab.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-lg');
+            tab.classList.remove('bg-slate-900', 'border', 'border-slate-700', 'text-gray-300');
+
+            const artifact = ARTIFACTS.find(a => a.id === tab.dataset.wf) || ARTIFACTS[0];
+            renderHomeArtifact(artifact, 'preview');
+        });
+    });
+
+    if (indexPreviewContainer) {
+        renderHomeArtifact(ARTIFACTS[0], 'preview');
+    }
+
+    // 2. App Playground (#artifacts-studio) Interactive Gallery
+    const pgGrid = document.getElementById('pgArtifactSelectorGrid');
+    const pgPreviewArea = document.getElementById('pgArtifactPreviewArea');
+    const pgCodeArea = document.getElementById('pgArtifactCodeArea');
+    const pgCodeText = document.getElementById('pgArtifactCodeText');
+    const pgFilename = document.getElementById('pgArtifactFilename');
+    const pgTitle = document.getElementById('pgArtifactTitle');
+    const pgModePreviewBtn = document.getElementById('pgArtifactModePreviewBtn');
+    const pgModeCodeBtn = document.getElementById('pgArtifactModeCodeBtn');
+    const pgCopyBtn = document.getElementById('pgCopyArtifactBtn');
+
+    let currentPgArtifact = ARTIFACTS[0];
+
+    if (pgGrid) {
+        pgGrid.innerHTML = ARTIFACTS.map((art, idx) => `
+            <div class="pg-art-card p-4 rounded-2xl bg-slate-950 border ${idx === 0 ? 'border-cyan-500/50 shadow-lg shadow-cyan-500/10' : 'border-slate-800'} cursor-pointer hover:border-cyan-500/40 transition-all flex flex-col justify-between" data-id="${art.id}">
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/40">${art.category}</span>
+                        <i class="fas fa-cube text-cyan-400 text-xs"></i>
+                    </div>
+                    <h4 class="text-xs font-bold text-white font-space">${art.title}</h4>
+                    <p class="text-[11px] text-gray-400 mt-1 line-clamp-2">${art.description}</p>
+                </div>
+                <div class="mt-3 pt-2 border-t border-slate-900 flex justify-between items-center text-[10px] font-mono text-gray-500">
+                    <span>${art.filename}</span>
+                    <span class="text-cyan-400 font-semibold">Executable &rarr;</span>
+                </div>
+            </div>
+        `).join('');
+
+        document.querySelectorAll('.pg-art-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.pg-art-card').forEach(c => {
+                    c.className = 'pg-art-card p-4 rounded-2xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-cyan-500/40 transition-all flex flex-col justify-between';
+                });
+                card.className = 'pg-art-card p-4 rounded-2xl bg-slate-950 border border-cyan-500/50 shadow-lg shadow-cyan-500/10 cursor-pointer transition-all flex flex-col justify-between';
+
+                const art = ARTIFACTS.find(a => a.id === card.dataset.id) || ARTIFACTS[0];
+                renderPgArtifact(art, 'preview');
+            });
+        });
+
+        renderPgArtifact(ARTIFACTS[0], 'preview');
+    }
+
+    function renderPgArtifact(artifact, mode = 'preview') {
+        if (!pgPreviewArea) return;
+        currentPgArtifact = artifact;
+
+        if (pgFilename) pgFilename.textContent = artifact.filename;
+        if (pgTitle) pgTitle.textContent = artifact.title;
+
+        if (pgPreviewArea) {
+            pgPreviewArea.innerHTML = artifact.previewHtml;
+            attachArtifactInteractiveEvents(pgPreviewArea);
+        }
+
+        if (pgCodeText) {
+            pgCodeText.textContent = artifact.code;
+        }
+
+        setPgArtifactMode(mode);
+    }
+
+    function setPgArtifactMode(mode) {
+        if (mode === 'preview') {
+            pgPreviewArea?.classList.remove('hidden');
+            pgCodeArea?.classList.add('hidden');
+            pgModePreviewBtn?.classList.add('bg-cyan-600', 'text-white');
+            pgModePreviewBtn?.classList.remove('text-gray-400');
+            pgModeCodeBtn?.classList.remove('bg-cyan-600', 'text-white');
+            pgModeCodeBtn?.classList.add('text-gray-400');
+        } else {
+            pgPreviewArea?.classList.add('hidden');
+            pgCodeArea?.classList.remove('hidden');
+            pgModeCodeBtn?.classList.add('bg-cyan-600', 'text-white');
+            pgModeCodeBtn?.classList.remove('text-gray-400');
+            pgModePreviewBtn?.classList.remove('bg-cyan-600', 'text-white');
+            pgModePreviewBtn?.classList.add('text-gray-400');
+        }
+    }
+
+    pgModePreviewBtn?.addEventListener('click', () => setPgArtifactMode('preview'));
+    pgModeCodeBtn?.addEventListener('click', () => setPgArtifactMode('code'));
+    pgCopyBtn?.addEventListener('click', () => {
+        if (currentPgArtifact) {
+            navigator.clipboard.writeText(currentPgArtifact.code);
+            showToast('Artifact code copied to clipboard!', 'success');
+        }
+    });
+
+    // Helper to attach event listeners to interactive elements inside artifacts
+    function attachArtifactInteractiveEvents(container) {
+        const leadBtn = container.querySelector('#art-run-lead-btn');
+        if (leadBtn) {
+            leadBtn.addEventListener('click', () => {
+                const company = container.querySelector('#art-lead-company')?.value || 'Apex Logistics';
+                const resultBox = container.querySelector('#art-lead-result');
+                const timer = container.querySelector('#art-lead-timer');
+
+                leadBtn.disabled = true;
+                leadBtn.innerHTML = `<i class="fas fa-spinner fa-spin text-[10px]"></i> Running Scoring...`;
+
+                setTimeout(() => {
+                    if (resultBox) {
+                        resultBox.innerHTML = `
+                            <div class="flex justify-between text-gray-400 border-b border-slate-800 pb-1.5">
+                                <span>PIPELINE_OUTCOME</span>
+                                <span class="text-emerald-400 font-bold">QUALIFIED &bull; TIER 1</span>
+                            </div>
+                            <div class="text-indigo-300">&gt; Company: ${company}</div>
+                            <div class="text-emerald-400">&gt; AI Intent Score: 99.1 / 100 (Autonomous Ingestion Complete)</div>
+                            <div class="text-purple-300">&gt; Odoo Stage: 'Qualified Opportunity' Dispatched via n8n in 24ms</div>
+                        `;
+                    }
+                    if (timer) timer.textContent = `Execution time: 24ms`;
+                    leadBtn.disabled = false;
+                    leadBtn.innerHTML = `<i class="fas fa-play text-[10px]"></i> Run Autonomous Scoring`;
+                    showToast('Lead scoring artifact executed successfully!', 'success');
+                }, 400);
+            });
+        }
+    }
+}
+
+// Initialize on DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initArtifactsStudio);
+} else {
+    initArtifactsStudio();
+}
+
+

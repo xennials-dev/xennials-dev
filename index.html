@@ -363,67 +363,79 @@
             </div>
         </section>
 
-        <!-- Section: Interactive Workflow Sandbox -->
+        <!-- Section: Claude-Style Interactive Workflow Artifacts -->
         <section id="workflows" class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="bento-card rounded-3xl p-8 sm:p-12 border border-slate-800">
-                <div class="text-center max-w-3xl mx-auto mb-10">
+            <div class="bento-card rounded-3xl p-6 sm:p-10 border border-slate-800">
+                <div class="text-center max-w-3xl mx-auto mb-8">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3">
-                        <i class="fas fa-play"></i> Interactive Previews
+                        <i class="fas fa-shapes"></i> Interactive Executable Artifacts
                     </div>
                     <h2 class="text-3xl sm:text-4xl font-bold font-space text-white tracking-tight mb-3">
-                        Pre-Engineered <span class="gradient-text-cyan">Automation Workflows</span>
+                        Pre-Engineered <span class="gradient-text-cyan">Automation Artifacts</span>
                     </h2>
                     <p class="text-gray-400 text-xs sm:text-sm">
-                        Select a production workflow template to preview its architectural pipeline and execution mechanics.
+                        Inspect, interact with, and copy production-ready automation artifacts — engineered for live execution and immediate deployment.
                     </p>
                 </div>
 
                 <!-- Workflow Selector Tabs -->
-                <div class="flex items-center justify-center gap-2 sm:gap-3 flex-wrap mb-8" id="workflowTabContainer">
-                    <button class="wf-tab active px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 text-white shadow-lg transition-all" data-wf="lead_gen">
+                <div class="flex items-center justify-center gap-2 sm:gap-3 flex-wrap mb-6" id="workflowTabContainer">
+                    <button class="wf-tab active px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 text-white shadow-lg transition-all" data-wf="lead_router">
                         <i class="fas fa-user-plus mr-1.5"></i> Lead Ingestion &rarr; CRM
                     </button>
-                    <button class="wf-tab px-4 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-700 text-gray-300 hover:text-white transition-all" data-wf="finance_sync">
-                        <i class="fas fa-file-invoice-dollar mr-1.5"></i> Financial Reconciliation
+                    <button class="wf-tab px-4 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-700 text-gray-300 hover:text-white transition-all" data-wf="invoice_ocr">
+                        <i class="fas fa-file-invoice-dollar mr-1.5"></i> Invoice OCR &amp; Ledger
                     </button>
-                    <button class="wf-tab px-4 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-700 text-gray-300 hover:text-white transition-all" data-wf="support_agent">
-                        <i class="fas fa-headset mr-1.5"></i> Autonomous Support Agent
+                    <button class="wf-tab px-4 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-700 text-gray-300 hover:text-white transition-all" data-wf="vector_search">
+                        <i class="fas fa-brain mr-1.5"></i> Semantic Vector Search
                     </button>
-                    <button class="wf-tab px-4 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-700 text-gray-300 hover:text-white transition-all" data-wf="ocr_vision">
-                        <i class="fas fa-eye mr-1.5"></i> Multi-Modal OCR Pipeline
+                    <button class="wf-tab px-4 py-2 rounded-xl text-xs font-medium bg-slate-900 border border-slate-700 text-gray-300 hover:text-white transition-all" data-wf="sla_monitor">
+                        <i class="fas fa-heart-pulse mr-1.5"></i> SLA &amp; Webhook Monitor
                     </button>
                 </div>
 
-                <!-- Active Workflow Content Display -->
-                <div class="bg-slate-950/90 rounded-2xl border border-slate-800 p-6 sm:p-8" id="workflowDisplayBox">
-                    <div class="grid md:grid-cols-12 gap-8 items-center">
-                        <div class="md:col-span-6 space-y-4">
-                            <h3 class="text-xl font-bold font-space text-white" id="wfTitle">AI Lead Ingestion &amp; Qualification Pipeline</h3>
-                            <p class="text-gray-400 text-xs sm:text-sm leading-relaxed" id="wfDesc">
-                                Ingests leads from typeforms, LinkedIn, or cold email responses, runs AI sentiment and firmographic enrichment, scores intent, and creates qualified opportunities in Odoo CRM with customized proposal drafts.
-                            </p>
-                            <div class="flex flex-wrap gap-2 pt-2" id="wfBadges">
-                                <span class="px-2.5 py-1 rounded bg-indigo-950 text-indigo-300 text-xs font-mono">n8n Engine</span>
-                                <span class="px-2.5 py-1 rounded bg-purple-950 text-purple-300 text-xs font-mono">Odoo CRM</span>
-                                <span class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-300 text-xs font-mono">Sub-1s Qualification</span>
+                <!-- Claude-Style Artifact Container -->
+                <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+                    
+                    <!-- Artifact Header Bar -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-6 py-4 bg-slate-900/90 border-b border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-950/80 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-sm">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xs sm:text-sm font-bold font-mono text-white flex items-center gap-2" id="artifactFilename">
+                                    LeadRouterEngine.tsx
+                                </h3>
+                                <p class="text-[11px] text-gray-400" id="artifactTitle">Multi-Agent Lead Routing &amp; Qualification Engine</p>
                             </div>
                         </div>
-                        <div class="md:col-span-6 bg-slate-900/90 rounded-xl border border-slate-800 p-4 font-mono text-xs text-gray-300">
-                            <div class="flex justify-between items-center pb-2 border-b border-slate-800 text-gray-500 mb-3">
-                                <span>LIVE_EXECUTION_STREAM</span>
-                                <span class="text-emerald-400">200 OK</span>
+
+                        <!-- Artifact Mode Switcher: Preview vs Code -->
+                        <div class="flex items-center gap-2">
+                            <div class="bg-slate-950 p-1 rounded-xl border border-slate-800 flex items-center">
+                                <button id="artifactModePreviewBtn" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow transition-all flex items-center gap-1.5">
+                                    <i class="fas fa-eye text-[10px]"></i> Preview
+                                </button>
+                                <button id="artifactModeCodeBtn" class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-400 hover:text-white transition-all flex items-center gap-1.5">
+                                    <i class="fas fa-code text-[10px]"></i> Code
+                                </button>
                             </div>
-                            <pre class="whitespace-pre-wrap text-[11px] text-gray-300 leading-relaxed" id="wfPayload">
-{
-  "trigger": "inbound_webhook",
-  "lead_company": "Apex Global Solutions",
-  "ai_intent_score": 96.4,
-  "action_dispatched": "odoo_crm_create_lead",
-  "proposal_draft_status": "generated_and_queued",
-  "execution_time_ms": 34
-}
-                            </pre>
+
+                            <button id="copyArtifactCodeBtn" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-xl text-xs text-gray-300 hover:text-white transition-all flex items-center gap-1.5" title="Copy Artifact Code">
+                                <i class="fas fa-copy text-[11px]"></i> Copy
+                            </button>
                         </div>
+                    </div>
+
+                    <!-- Artifact Body: Preview Mode -->
+                    <div id="artifactPreviewContainer" class="p-6">
+                        <!-- Dynamic Artifact Preview Content Injected Here -->
+                    </div>
+
+                    <!-- Artifact Body: Code Mode -->
+                    <div id="artifactCodeContainer" class="hidden p-6 bg-slate-950 font-mono text-xs text-gray-300 overflow-x-auto max-h-[460px] overflow-y-auto">
+                        <pre><code id="artifactCodeText" class="language-typescript leading-relaxed"></code></pre>
                     </div>
                 </div>
             </div>
