@@ -8,6 +8,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         blog: resolve(__dirname, 'blog.html'),
         playground: resolve(__dirname, 'playground.html'),
+        tools: resolve(__dirname, 'tools.html'),
       },
     },
   },
