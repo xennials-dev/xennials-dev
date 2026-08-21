@@ -5,6 +5,8 @@
 
 import { AIModelRouter } from './services/aiModelRouter.js';
 import { ARTIFACTS } from './services/artifactsData.js';
+import { initToolsPage } from './services/toolsPage.js';
+import { initPlaygroundPage } from './services/playgroundPage.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initHeroParticles();
@@ -20,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initFaqAccordion();
     initAIRouterWorkbench();
     initArtifactsStudio();
+    initToolsPage();
+    initPlaygroundPage();
 });
 
 /* Hero Background Ambient Canvas */
